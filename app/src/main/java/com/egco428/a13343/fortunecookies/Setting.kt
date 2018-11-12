@@ -68,31 +68,7 @@ class Setting : AppCompatActivity() {
     }
 
     fun addMessage(view: View){
-        //aaaa.text = spinner.selectedItem.toString()
         dataSource!!.createComment(messageText.text.toString(),spinner.selectedItem.toString())
-        val values = dataSource!!.allComments
-        val adapter = CourseArrayAdapter(this, 0, values!!)
-        _listMessage.adapter = adapter
-        adapter.notifyDataSetChanged()
-    }
-
-    fun OnClick(view: View){
-        var comment : Comment? = null
-        when(view.getId()){
-            R.id.t1->{
-                val comments = arrayOf("Summer","Winter","Spring","Fall","Raining")
-                val nextInt = Random().nextInt(5)
-                comment = dataSource!!.createComment(comments[nextInt],"1")
-                //adapter.add(comment)
-            }
-            R.id.t2->{
-                if(_listMessage.adapter.getCount() > 0){
-                    comment = _listMessage.adapter.getItem(0) as Comment
-                    dataSource!!.deleteComment(comment!!)
-                    //adapter.remove(comment)
-                }
-            }
-        }
         val values = dataSource!!.allComments
         val adapter = CourseArrayAdapter(this, 0, values!!)
         _listMessage.adapter = adapter
@@ -108,11 +84,6 @@ class Setting : AppCompatActivity() {
         super.onPause()
         dataSource!!.close()
     }
-
-
-
-
-
 
     private class CourseArrayAdapter(var context: Context, resource: Int, var objects: List<Comment>): BaseAdapter(){
         override fun getCount(): Int {
@@ -146,7 +117,6 @@ class Setting : AppCompatActivity() {
             viewHolder.sub.text = course.commentType
             if(course.commentType.toString() == "Positive") viewHolder.title.setTextColor(Color.BLUE)
             else if(course.commentType.toString() == "Negative") viewHolder.title.setTextColor(Color.rgb(243, 156, 18))
-
 
             return rowMain
         }

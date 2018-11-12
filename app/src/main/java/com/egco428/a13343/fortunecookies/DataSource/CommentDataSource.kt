@@ -66,6 +66,22 @@ class CommentDataSource(context: Context){
         database!!.delete(MySQLiteHelper.TABLE_COMMENTS, MySQLiteHelper.COLUMN_ID+ " = " + id, null)
     }
 
+    fun getData(index:Int): Comment {
+        var count:Int = 0
+        var comment = Comment()
+        val cursor = database!!.query(MySQLiteHelper.TABLE_COMMENTS,
+            allColumns, null, null, null, null, null)
+        cursor.moveToFirst()
+        while (count<index) {
+            count+=1
+            cursor.moveToNext()
+        }
+        if(count == index){
+            comment = cursorToComment(cursor)
+        }
+        cursor.close()
+        return comment
+    }
     private fun cursorToComment(cursor: Cursor): Comment {
         val comment = Comment()
         comment.id = cursor.getLong(0)
