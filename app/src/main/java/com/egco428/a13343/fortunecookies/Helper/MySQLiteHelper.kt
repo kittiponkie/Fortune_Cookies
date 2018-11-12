@@ -25,14 +25,16 @@ class MySQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val TABLE_COMMENTS = "comments" //table name
         val COLUMN_ID = "_id"  //column ID
         val COLUMN_COMMENT = "comment" //column name
+        val COLUMN_TYPE = "type"
 
-        private val DATABASE_NAME = "commments.db"
+        private val DATABASE_NAME = "FortuneCookies.db"
         private val DATABASE_VERSION = 1 //version that you can change
 
         // Database creation sql statement
         private val DATABASE_CREATE = ("create table "
-                + TABLE_COMMENTS + "(" + COLUMN_ID
-                + " integer primary key autoincrement, " + COLUMN_COMMENT
-                + " text not null);")
+                + TABLE_COMMENTS + "("
+                + COLUMN_ID + " integer primary key autoincrement, "
+                + COLUMN_COMMENT + " text not null,"
+                + COLUMN_TYPE + " type not null);")
     }
 }

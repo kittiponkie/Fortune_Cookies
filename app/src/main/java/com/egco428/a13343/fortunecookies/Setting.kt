@@ -72,7 +72,7 @@ class Setting : AppCompatActivity() {
             R.id.t1->{
                 val comments = arrayOf("Summer","Winter","Spring","Fall","Raining")
                 val nextInt = Random().nextInt(5)
-                comment = dataSource!!.createComment(comments[nextInt])
+                comment = dataSource!!.createComment(comments[nextInt],"1")
                 adapter.add(comment)
             }
             R.id.t2->{

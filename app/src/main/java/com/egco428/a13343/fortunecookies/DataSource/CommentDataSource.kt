@@ -15,7 +15,7 @@ class CommentDataSource(context: Context){
     // Database fields
     private var database: SQLiteDatabase? = null
     private val dbHelper: MySQLiteHelper
-    private val allColumns = arrayOf<String>(MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_COMMENT)
+    private val allColumns = arrayOf<String>(MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_COMMENT, MySQLiteHelper.COLUMN_TYPE)
 
     // make sure to close the cursor
     val allComments: List<Comment>
@@ -48,9 +48,10 @@ class CommentDataSource(context: Context){
         dbHelper.close()
     }
 
-    fun createComment(comment: String): Comment {
+    fun createComment(comment: String,type:String): Comment {
         val values = ContentValues()
         values.put(MySQLiteHelper.COLUMN_COMMENT, comment)
+        values.put(MySQLiteHelper.COLUMN_TYPE,type)
         val insertId = database!!.insert(MySQLiteHelper.TABLE_COMMENTS, null,values)
         val cursor = database!!.query(MySQLiteHelper.TABLE_COMMENTS,allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null, null, null, null)
         cursor.moveToFirst()
@@ -69,7 +70,7 @@ class CommentDataSource(context: Context){
         val comment = Comment()
         comment.id = cursor.getLong(0)
         comment.commentData = cursor.getString(1)
-        //comment.commentType = cursor.getString(2)
+        comment.commentType = cursor.getString(2)
         return comment
     }
 }
